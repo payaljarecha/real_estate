@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tenant Profile</title>
+</head>
+<body>
+    <h1>Tenant Profile</h1>
+
+    <h2>{{ tenant.name }}</h2>
+    <p><strong>Address:</strong> {{ tenant.address }}</p>
+    <p><strong>Document Proofs:</strong> {{ tenant.document_proofs }}</p>
+
+    <h2>Rental Information</h2>
+    {% if tenant.unit %}
+        <p><strong>Property:</strong> {{ tenant.unit.property.name }}</p>
+        <p><strong>Unit:</strong> {{ tenant.unit.bedroom_type }}</p>
+        <p><strong>Agreement End Date:</strong> {{ tenant.agreement_end_date }}</p>
+        <p><strong>Monthly Rent Date:</strong> {{ tenant.monthly_rent_date }}</p>
+    {% else %}
+        <p>This tenant is not currently assigned to any unit.</p>
+    {% endif %}
+
+    <!-- Add a search form based on features for units and properties -->
+    <h2>Search</h2>
+    <form method="GET" action="{% url 'property_listing' %}">
+        <label for="property_features">Property Features:</label>
+        <input type="text" name="property_features" id="property_features" placeholder="Enter property features">
+        <br>
+        <label for="unit_features">Unit Features:</label>
+        <input type="text" name="unit_features" id="unit_features" placeholder="Enter unit features">
+        <br>
+        <button type="submit">Search</button>
+    </form>
+
+</body>
+</html>

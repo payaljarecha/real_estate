@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Property Listing</title>
+</head>
+<body>
+    <h1>Property Listing</h1>
+
+    {% for property in properties %}
+        <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;">
+            <h2>{{ property.name }}</h2>
+            <p><strong>Address:</strong> {{ property.address }}</p>
+            <p><strong>Location:</strong> {{ property.location }}</p>
+
+            <h3>Units:</h3>
+            {% if property.unit_set.all %}
+                <ul>
+                    {% for unit in property.unit_set.all %}
+                        <li>{{ unit.bedroom_type }} - Rent: {{ unit.rent_cost }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No units available for this property.</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    <!-- Add a search form based on features for properties -->
+    <h2>Search</h2>
+    <form method="GET" action="{% url 'property_listing' %}">
+        <label for="property_features">Property Features:</label>
+        <input type="text" name="property_features" id="property_features" placeholder="Enter property features">
+        <br>
+        <button type="submit">Search</button>
+    </form>
+
+</body>
+</html>
